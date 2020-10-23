@@ -1,0 +1,15 @@
+{
+  "vendorApiKey": 4,
+  "vendorTransactionId": "600c2f6c-8b3c-4972-ba61-d667dc4d1d2b",
+  "amount": 200,
+  "successUrl": "/vendor-mock#success",
+  "errorUrl": "/vendor-mock#error",
+  "vendorFirstName": "Janez111",
+  "vendorLastName": "Novak",
+  "vendorAddress": "Teslova ulica",
+  "vendorZip": "1000",
+  "vendorCity": "Ljubljana",
+  "language": "sl",
+  "additionalMeta": "TestMetaDATA",
+  "vendorEmail": "test@email.com"
+}

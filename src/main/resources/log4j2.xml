@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <properties>
+        <property name="pattern">[%d{HH:mm:ss}] %-5p (%F:%L) - %m%n</property>
+    </properties>
+
+    <Appenders>
+        <Console
+                name="ConsoleAppender"
+                target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] %p (%F:%L) - %m%n"/>
+        </Console>
+
+        <!-- Basic appender for logging to file -->
+        <File name="FileAppender" fileName="logs/taf.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] %p (%F:%L) - %m%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="FileAppender" level="info"/>
+            <AppenderRef ref="ConsoleAppender" level="info"/>
+        </Root>
+
+        <Logger name="com.datalex" level="info" additivity="false">
+            <AppenderRef ref="FileAppender" level="info"/>
+            <AppenderRef ref="ConsoleAppender" level="info"/>
+        </Logger>
+    </Loggers>
+
+</Configuration>
