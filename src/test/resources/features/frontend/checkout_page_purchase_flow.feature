@@ -3,19 +3,18 @@ Feature: TST-1 - Test Checkout-Purchase Flow
   Description: Testing initial Leanpay checkout-purchase flow - positive
 
   Scenario Outline: 1. Test initial checkout flow
-
-    ## Checkout page - choose item to buy
+    ## Choose item to buy
     Given user access checkout page
     And user chooses item 2 from the list to buy
     When user clicks BuyWithLeanPay button
     Then valid checkout page is opened
 
-    ## Installment options - choose installment option
+    ## Choose installment options
     And user chooses installment option: <monthlyInstallment>, <paymentDate>
     And user clicks on confirm button
     And valid page for providing phone number is opened
 
-    ## Input mobile phone number
+    ## Enter mobile phone number
     And user selects <countryCode> country code
     And user enters phone number: <phoneNumber> and clicks confirmation button
     And valid page for providing pin code is opened
@@ -38,13 +37,15 @@ Feature: TST-1 - Test Checkout-Purchase Flow
       | 1000            | 150               | Polni delovni čas | 2             | SI56010000000100090 |
     And valid page for reviewing financial data is opened
 
-    ## Review financial data
+    ## Review and confirm financial data
     And user reviews financial data and click on confirmation button
     And check if the correct credit amount is approved
 
-    ## Credit Agreement
+    ## Credit agreement confirmation
     And check if the credit agreement page is opened
     And user confirms credit agreement
+
+    ## Successful credit agreement
     And page for announcing successful credit agreement is opened
 
     Examples:
