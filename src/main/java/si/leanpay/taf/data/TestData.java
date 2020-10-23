@@ -26,4 +26,5 @@ public class TestData {
     private String firstName;
     private String lastName;
     private String securityPin;
+    private boolean isWebDriverStarted;
 }

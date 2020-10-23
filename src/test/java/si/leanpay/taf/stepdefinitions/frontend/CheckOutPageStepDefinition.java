@@ -1,11 +1,11 @@
 package si.leanpay.taf.stepdefinitions.frontend;
 
+import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.After;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import si.leanpay.taf.data.FinancialData;
@@ -34,6 +34,7 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
 
     @Given("user access checkout page")
     public void accessCheckoutPage() {
+        testData.setWebDriverStarted(true);
         checkOutPageObject.init();
         checkOutPageObject.navigate(basePage);
     }
@@ -78,7 +79,8 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
 
     @And("user enters phone number: (.*) and clicks confirmation button$")
     public void enterPhoneNumber(String phoneNumber) {
-        checkOutPageObject.enterPhoneNumber(phoneNumber);
+        Faker faker = new Faker();
+        checkOutPageObject.enterPhoneNumber(phoneNumber + faker.number().digits(11));
         checkOutPageObject.clickConfirmationButton();
     }
 
@@ -111,7 +113,7 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
     }
 
     @And("user enters personal security pin: (.*) and clicks confirmation button$")
-    public void enterSecurityPinCode(String pinCode) {
+    public void enterSecurityPinCode(String pinCode) throws InterruptedException {
         testData.setSecurityPin(pinCode);
         checkOutPageObject.enterConfirmPersonalSecurityPin(pinCode);
         checkOutPageObject.clickConfirmationButton();
@@ -137,13 +139,13 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
 
     @And("user reviews financial data and click on confirmation button")
     public void reviewFinanceDataAndContinue() {
-        checkOutPageObject.clickConfirmationButton();
+        checkOutPageObject.confirmFinancialData();
     }
 
     @And("check if the correct credit amount is approved")
     public void checkCreditAmount() {
         Assert.assertTrue(checkOutPageObject.checkPageTitleByText("150"));
-        checkOutPageObject.clickConfirmationButton();
+        checkOutPageObject.confirmCreditAmountData();
     }
 
     @And("check if the credit agreement page is opened")
@@ -157,12 +159,8 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
     }
 
     @And("user confirms credit agreement")
-    public void confirmCreditAgreement() {
+    public void confirmCreditAgreement() throws InterruptedException {
         checkOutPageObject.approveCreditAgreement(testData.getSecurityPin());
     }
 
-    @After
-    public void tearDown() {
-        checkOutPageObject.quitDriver();
-    }
 }

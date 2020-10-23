@@ -1,6 +1,6 @@
 Feature: TST-1 - Test Checkout-Purchase Flow
 
-  Description: Testing initial Leanpay checkout flow - positive
+  Description: Testing initial Leanpay checkout-purchase flow - positive
 
   Scenario Outline: 1. Test initial checkout flow
 
@@ -48,5 +48,5 @@ Feature: TST-1 - Test Checkout-Purchase Flow
     And page for announcing successful credit agreement is opened
 
     Examples:
-      | monthlyInstallment | paymentDate    | countryCode | phoneNumber | pinCode | securityPinCode |
-      | 6 months           | 7.in the month | SRB         | 73573573573 | 5533    | 959595          |
+      | monthlyInstallment | paymentDate     | countryCode | phoneNumber | pinCode | securityPinCode |
+      | 6 months           | 17.in the month | SRB         | 73587373    | 5533    | 959595          |

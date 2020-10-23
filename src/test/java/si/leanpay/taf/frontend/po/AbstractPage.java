@@ -42,7 +42,7 @@ public abstract class AbstractPage {
     }
 
     public void clickCheckBoxById(String id) {
-        getInputById(id).click();
+        DriverFactory.getInstance().getDriver().findElement(By.xpath("//input[@id='" + id + "']")).click();
     }
 
     public WebElement getXpathByText(String tag, String text) {

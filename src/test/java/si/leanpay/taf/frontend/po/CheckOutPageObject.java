@@ -81,30 +81,33 @@ public class CheckOutPageObject extends AbstractPage {
         }
     }
 
-    public void enterConfirmPersonalSecurityPin(String pinCode) {
+    public void enterConfirmPersonalSecurityPin(String pinCode) throws InterruptedException {
         String[] codes = pinCode.split("");
 
         for (int i = 0; i < codes.length; i++) {
             WebElement input = driver
                     .findElement(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[1]/" +
                             "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
+            Thread.sleep(100);
             input.sendKeys(codes[i]);
         }
         for (int i = 0; i < codes.length; i++) {
             WebElement input = driver
                     .findElement(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[2]/" +
                             "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
+            Thread.sleep(100);
             input.sendKeys(codes[i]);
         }
     }
 
-    public void enterPersonalSecurityPin(String pinCode) {
+    public void enterPersonalSecurityPin(String pinCode) throws InterruptedException {
         String[] codes = pinCode.split("");
 
         for (int i = 0; i < codes.length; i++) {
             WebElement input = driver
                     .findElement(By.xpath("//lp-checkout-contract[1]/div[1]/div[1]/div[2]/div[3]/form[1]/div[4]/" +
                             "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
+            Thread.sleep(100);
             input.sendKeys(codes[i]);
         }
     }
@@ -162,11 +165,19 @@ public class CheckOutPageObject extends AbstractPage {
         getInputById("bankAccountNumber").sendKeys(financialData.getTransactionNumber());
     }
 
-    public void approveCreditAgreement(String securityPin) {
+    public void approveCreditAgreement(String securityPin) throws InterruptedException {
         clickCheckBoxById("CONTRACT");
         clickCheckBoxById("SEPA_DIRECT_DEBIT");
         clickXpath("//lp-checkout-contract[1]/div[1]/div[1]/div[2]/div[3]/form[1]/div[3]/div[1]/div[2]/label[1]/input[1]");
         enterPersonalSecurityPin(securityPin);
         clickXpath("//lp-checkout-contract[1]/div[1]/div[1]/div[2]/div[4]/lp-loading-button[1]/button[1]");
+    }
+
+    public void confirmFinancialData() {
+        clickXpath("//lp-financial-details[1]/div[2]/lp-loading-button[1]/button[1]");
+    }
+
+    public void confirmCreditAmountData() {
+        clickXpath("//lp-checkout-overview[1]/lp-loading-button[1]/button[1]");
     }
 }

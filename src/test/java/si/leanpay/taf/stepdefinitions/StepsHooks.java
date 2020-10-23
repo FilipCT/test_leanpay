@@ -5,7 +5,10 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import si.leanpay.taf.data.GeneralConstants;
+import si.leanpay.taf.data.TestData;
+import si.leanpay.taf.frontend.utils.DriverFactory;
 import si.leanpay.taf.utils.Info;
 
 import java.io.File;
@@ -17,7 +20,10 @@ import java.io.IOException;
  * @author Filip Milicevic
  */
 public class StepsHooks extends SpringIntegrationTest {
+    @Autowired
+    private TestData testData;
     private static boolean isScenarioDefined = false;
+
 
     @Before
     public void beforeScenario(Scenario scenario) throws IOException {
@@ -64,5 +70,10 @@ public class StepsHooks extends SpringIntegrationTest {
                 Info.getExampleNumber());
 
         FileUtils.copyDirectory(new File(GeneralConstants.WORK_DIR), new File(currentMessageReportDirPath));
+
+        if(testData.isWebDriverStarted()){
+            DriverFactory.getInstance().getDriver().quit();
+        }
+
     }
 }
