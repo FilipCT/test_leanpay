@@ -23,7 +23,11 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-./work
-./target
-./messageStorage
+./work/
+./target/
+./messageStorage/
 
+debug.log
+messageStorage/
+target/
+work/
