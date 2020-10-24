@@ -3,6 +3,7 @@ Feature: TST-1 - Leanpay Checkout Process Flow
   Description: Testing initial Leanpay checkout process flow.
   Covered services: Request Token, Checkout Payment Data, Request Pin, Authenticate, Session Info
 
+  @backend
   Scenario Outline: 1. Test basic checkout process flow
     ## Request token service
     Given user prepares request token request

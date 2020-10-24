@@ -2,6 +2,7 @@ Feature: TST-1 - Test Checkout-Purchase Flow
 
   Description: Testing initial Leanpay checkout-purchase flow - positive
 
+  @frontend
   Scenario Outline: 1. Test initial checkout flow
     ## Choose item to buy
     Given user access checkout page

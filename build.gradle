@@ -60,27 +60,37 @@ dependencies {
 
 }
 
-/*configurations {
+configurations {
 	cucumberRuntime {
-		extendsFrom testRuntime
+		extendsFrom testImplementation
 	}
 }
 
 test {
+	systemProperties(System.properties)
 	useJUnitPlatform()
 }
 
-task cucumber() {
+task frontend() {
 	dependsOn assemble, testClasses
 	doLast {
 		javaexec {
 			main = "io.cucumber.core.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-			args = ['--plugin', 'pretty', '--glue', 'si.leanpay.taf/stepdefinitions', 'src/test/resources/features']
+			args = ['--plugin', 'pretty', '--plugin', 'html:target/cucumber-html-report', '--plugin', 'json:target/cucumber.json',
+					'--tags', '@frontend', '--glue', 'si.leanpay.taf', 'src/test/resources/features']
 		}
 	}
-}*/
+}
 
-test {
-	useJUnitPlatform()
+task backend() {
+	dependsOn assemble, testClasses
+	doLast {
+		javaexec {
+			main = "io.cucumber.core.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = ['--plugin', 'pretty', '--plugin', 'html:target/cucumber-html-report', '--plugin', 'json:target/cucumber.json',
+					'--tags', '@backend', '--glue', 'si.leanpay.taf', 'src/test/resources/features']
+		}
+	}
 }
