@@ -52,3 +52,4 @@ Feature: TST-1 - Test Checkout-Purchase Flow
     Examples:
       | monthlyInstallment | paymentDate     | countryCode | phoneNumber | pinCode | securityPinCode |
       | 6 months           | 17.in the month | SRB         | 73587373    | 5533    | 959595          |
+      #| 12 months          | 7.in the month  | SRB         | 73587374    | 5533    | 959595          |

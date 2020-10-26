@@ -74,40 +74,32 @@ public class CheckOutPageObject extends AbstractPage {
             input.click();
             input.sendKeys(codes[i]);
         }
-
-        if (DriverFactory.getInstance().getDriver()
-                .findElement(By.xpath("//button[contains(text(), 'NADALJUJ')]")).isDisplayed()) {
-            clickConfirmationButton();
-        }
     }
 
     public void enterConfirmPersonalSecurityPin(String pinCode) throws InterruptedException {
         String[] codes = pinCode.split("");
-
+        WebDriverWait wait = new WebDriverWait(DriverFactory.getInstance().getDriver(), 1);
         for (int i = 0; i < codes.length; i++) {
-            WebElement input = driver
-                    .findElement(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[1]/" +
-                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
-            Thread.sleep(100);
+            WebElement input = wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[1]/" +
+                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]")));
             input.sendKeys(codes[i]);
         }
         for (int i = 0; i < codes.length; i++) {
-            WebElement input = driver
-                    .findElement(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[2]/" +
-                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
-            Thread.sleep(100);
+           WebElement input = wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath("//lp-two-fa-pin-set[1]/div[2]/form[1]/div[2]/" +
+                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]")));
             input.sendKeys(codes[i]);
         }
     }
 
     public void enterPersonalSecurityPin(String pinCode) throws InterruptedException {
         String[] codes = pinCode.split("");
-
+        WebDriverWait wait = new WebDriverWait(DriverFactory.getInstance().getDriver(), 1);
         for (int i = 0; i < codes.length; i++) {
-            WebElement input = driver
-                    .findElement(By.xpath("//lp-checkout-contract[1]/div[1]/div[1]/div[2]/div[3]/form[1]/div[4]/" +
-                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]"));
-            Thread.sleep(100);
+            WebElement input = wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath("//lp-checkout-contract[1]/div[1]/div[1]/div[2]/div[3]/form[1]/div[4]/" +
+                            "lp-two-fa-pin-input[1]/form[1]/div[1]/input[" + (i + 1) + "]")));
             input.sendKeys(codes[i]);
         }
     }

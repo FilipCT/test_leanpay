@@ -66,6 +66,8 @@ configurations {
 	}
 }
 
+String threadsQuantity = '1'
+
 test {
 	systemProperties(System.properties)
 	useJUnitPlatform()
@@ -78,7 +80,8 @@ task frontend() {
 			main = "io.cucumber.core.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
 			args = ['--plugin', 'pretty', '--plugin', 'html:target/cucumber-html-report', '--plugin', 'json:target/cucumber.json',
-					'--tags', '@frontend', '--glue', 'si.leanpay.taf', 'src/test/resources/features']
+					'--tags', '@frontend', '--glue', 'si.leanpay.taf', 'src/test/resources/features',
+					'--threads', threadsQuantity]
 		}
 	}
 }
@@ -90,7 +93,8 @@ task backend() {
 			main = "io.cucumber.core.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
 			args = ['--plugin', 'pretty', '--plugin', 'html:target/cucumber-html-report', '--plugin', 'json:target/cucumber.json',
-					'--tags', '@backend', '--glue', 'si.leanpay.taf', 'src/test/resources/features']
+					'--tags', '@backend', '--glue', 'si.leanpay.taf', 'src/test/resources/features',
+					'--threads', threadsQuantity]
 		}
 	}
 }

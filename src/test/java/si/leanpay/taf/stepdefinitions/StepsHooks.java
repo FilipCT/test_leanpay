@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import si.leanpay.taf.data.GeneralConstants;
 import si.leanpay.taf.data.TestData;
@@ -32,7 +33,7 @@ public class StepsHooks extends SpringIntegrationTest {
 
         String currentFeatureName;
         try {
-            currentFeatureName = scenario.getId().split("---")[0].toUpperCase();
+            currentFeatureName = FilenameUtils.getBaseName(scenario.getId().split("///")[1]).toUpperCase();
         } catch (NullPointerException e) {
             currentFeatureName = scenario.getId();
         }
@@ -54,6 +55,7 @@ public class StepsHooks extends SpringIntegrationTest {
 
     @After
     public void afterScenario(Scenario scenario) throws IOException {
+        String featureName = Info.getFeatureName();
         String scenarioName = Info.getScenarioName();
         String scenarioNumberFromName;
         String folderNamePattern;
@@ -65,15 +67,21 @@ public class StepsHooks extends SpringIntegrationTest {
             scenarioNumberFromName = scenarioName;
         }
 
-        folderNamePattern = "./messageStorage/Scenario_%s/example_%s";
-        currentMessageReportDirPath = String.format(folderNamePattern, scenarioNumberFromName,
+        folderNamePattern = "./messageStorage/%s/Scenario_%s/example_%s";
+        currentMessageReportDirPath = String.format(folderNamePattern, featureName, scenarioNumberFromName,
                 Info.getExampleNumber());
 
         FileUtils.copyDirectory(new File(GeneralConstants.WORK_DIR), new File(currentMessageReportDirPath));
 
-        if(testData.isWebDriverStarted()){
-            DriverFactory.getInstance().getDriver().quit();
+        if (testData.isWebDriverStarted()) {
+            try {
+                if (scenario.isFailed()) {
+                    DriverFactory.takeSnapShot("errorPage");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            DriverFactory.removeDriver();
         }
-
     }
 }

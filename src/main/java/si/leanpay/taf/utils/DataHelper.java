@@ -28,18 +28,19 @@ public class DataHelper {
     /**
      * Map CSV to Object
      *
-     * @param csvFile - CSV file name without extension
-     * @param clazz   - TestData class
+     * @param csvFile   - CSV file name without extension
+     * @param className - TestData class
      * @return Object collection
      * @throws FileNotFoundException if file is not found
      */
-    public static Object[][] mapDataFromCSVToObject(Class clazz, String csvFile) throws FileNotFoundException {
+    @SuppressWarnings("unchecked")
+    public static Object[][] mapDataFromCSVToObject(Class className, String csvFile) throws FileNotFoundException {
         String renamedCSVFile = getCsvFileName(csvFile);
 
         Reader file = new FileReader(
                 TEST_DATA_DIR + renamedCSVFile + ".csv");
         List<?> testData = new CsvToBeanBuilder(file)
-                .withType(clazz).build().parse();
+                .withType(className).build().parse();
 
         Object[][] testNgData = new Object[testData.size()][1];
         for (int i = 0; i < testData.size(); i++) {
@@ -63,9 +64,6 @@ public class DataHelper {
     }
 
     public static void saveFinancialData(List<String> financialDataList, FinancialData financialData) {
-        FakeValuesService fakeValuesService = new FakeValuesService(
-                new Locale("en-US"), new RandomService());
-        Faker faker = new Faker();
         financialData.setMonthlyEarnings(financialDataList.get(0));
         financialData.setCreditLiabilities(financialDataList.get(1));
         financialData.setTypeOfEmployment(financialDataList.get(2));

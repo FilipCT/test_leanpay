@@ -13,7 +13,6 @@ import java.io.IOException;
 @Data
 @Log4j2
 public class RestHelper {
-    protected static String filePath = GeneralConstants.WORK_DIR;
     private static int index;
     String request;
     Response response;
@@ -32,13 +31,15 @@ public class RestHelper {
                 .all()
                 .get(uri);
 
-        saveDocumentToFile(response.prettyPrint(), filePath + index + "_" + serviceName + "RS" + ".json");
+        saveDocumentToFile(response.prettyPrint(), GeneralConstants.WORK_DIR + index + "_" +
+                serviceName + "RS" + ".json");
         return response;
     }
 
     public Response sendPostRequest(String uri, RequestSpecification requestSpecification) throws IOException {
         index++;
-        saveDocumentToFile(request, filePath + index + "_" + serviceName + "RQ" + ".json");
+        saveDocumentToFile(request, GeneralConstants.WORK_DIR + index + "_" +
+                serviceName + "RQ" + ".json");
 
         response = requestSpecification
                 .when()
@@ -46,7 +47,8 @@ public class RestHelper {
                 .all()
                 .post(uri);
 
-        saveDocumentToFile(response.prettyPrint(), filePath + index + "_" + serviceName + "RS" + ".json");
+        saveDocumentToFile(response.prettyPrint(), GeneralConstants.WORK_DIR + index + "_" +
+                serviceName + "RS" + ".json");
         return response;
     }
 

@@ -2,7 +2,7 @@ Feature: TST-2 - Vendor API: Credit Calculation
 
   Description: Testing Leanpay Credit Calculation service.
   Both positive and negative test cases are covered
-  
+
   Scenario Outline: 1. Test vendor API when sending valid vendor api key
     Given user prepares credit calculation request with data: "<vendorApiKey>",<amount>,<term>
     When user sends credit calculation request
@@ -38,12 +38,3 @@ Feature: TST-2 - Vendor API: Credit Calculation
     Examples:
       | vendorApiKey                         | amount | term | errorCode | errorMessage                   |
       | 600c2f6c-8b3c-4972-ba61-d667dc4d1d2b | 10000  | 6    | 400       | VENDOR_API_MAX_AMOUNT_EXCEEDED |
-
-  Scenario Outline: 5. Test vendor API when sending incorrect term
-    Given user prepares credit calculation request with data: "<vendorApiKey>",<amount>,<term>
-    When user sends credit calculation request
-    Then valid error code <errorCode> and error message "<errorMessage>" should be returned
-
-    Examples:
-      | vendorApiKey                         | amount | term | errorCode | errorMessage            |
-      | 600c2f6c-8b3c-4972-ba61-d667dc4d1d2b | 900.0  | 2    | 400       | VENDOR_API_TERM_UNKNOWN |

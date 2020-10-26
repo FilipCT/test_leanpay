@@ -162,5 +162,4 @@ public class CheckOutPageStepDefinition extends SpringIntegrationTest {
     public void confirmCreditAgreement() throws InterruptedException {
         checkOutPageObject.approveCreditAgreement(testData.getSecurityPin());
     }
-
 }
