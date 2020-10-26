@@ -74,6 +74,11 @@ public class CheckOutPageObject extends AbstractPage {
             input.click();
             input.sendKeys(codes[i]);
         }
+
+        if (DriverFactory.getInstance().getDriver()
+                .findElement(By.xpath("//button[contains(text(), 'NADALJUJ')]")).isDisplayed()) {
+            clickConfirmationButton();
+        }
     }
 
     public void enterConfirmPersonalSecurityPin(String pinCode) throws InterruptedException {
