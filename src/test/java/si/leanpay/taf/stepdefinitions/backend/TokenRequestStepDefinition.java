@@ -12,6 +12,7 @@ import si.leanpay.taf.stepdefinitions.SpringIntegrationTest;
 import si.leanpay.taf.steps.TokenRequestStep;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * Token Request Service Step Definition class
@@ -27,7 +28,10 @@ public class TokenRequestStepDefinition extends SpringIntegrationTest {
     @And("user prepares request token request")
     public void prepareCheckOutPaymentRequest() throws IOException, ParseException {
         tokenRequestStep.init(testData, baseUrl);
-        tokenRequestStep.prepareTokenRequest();
+        //tokenRequestStep.prepareTokenRequest();
+
+        tokenRequestStep.prepareTokenRequestDTO("1", BigDecimal.valueOf(300),
+            "4", "product01");
     }
 
     @When("user sends request token request")
@@ -42,6 +46,6 @@ public class TokenRequestStepDefinition extends SpringIntegrationTest {
 
     @And("extract request token from response")
     public void extractRequestToken() {
-        testData.setRequestToken(RequestTokenExtractor.extractRequestToken(tokenRequestStep.getResponse()));
+        testData.setRequestToken(RequestTokenExtractor.extractRequestToken(tokenRequestStep.getResponseToken()));
     }
 }

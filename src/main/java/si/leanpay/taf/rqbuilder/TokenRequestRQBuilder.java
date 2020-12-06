@@ -6,9 +6,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import si.leanpay.taf.data.VendorData;
+import si.leanpay.taf.leanpay.core.dto.VendorApiRequest;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
@@ -31,6 +33,27 @@ public class TokenRequestRQBuilder {
         jsonObject.put("vendorTransactionId", uuid.toString());
         request.body(jsonObject.toJSONString());
         this.requestBody = jsonObject.toJSONString();
+        return this;
+    }
+
+    public TokenRequestRQBuilder addRequestBodyObject(String surrogateId, BigDecimal amount, String vendorId,
+        String vendorProductCode){
+        UUID uuid = UUID.randomUUID();
+        VendorApiRequest vendorApiRequest = new VendorApiRequest();
+
+        vendorApiRequest.setVendorApiKey(vendorId);
+        vendorApiRequest.setVendorTransactionId(uuid.toString());
+        vendorApiRequest.setAmount(amount);
+        vendorApiRequest.setSuccessUrl("/vendor-mock#success");
+        vendorApiRequest.setErrorUrl("/vendor-mock#error");
+        vendorApiRequest.setVendorFirstName("Janez111");
+        vendorApiRequest.setVendorLastName("Novak");
+        vendorApiRequest.setVendorAddress("Teslova ulica");
+        vendorApiRequest.setVendorZip("1000");
+        vendorApiRequest.setVendorCity("Ljubljana");
+        vendorApiRequest.setLanguage("sl");
+        vendorApiRequest.setVendorEmail("test@emal.com");
+        request.body(vendorApiRequest);
         return this;
     }
 

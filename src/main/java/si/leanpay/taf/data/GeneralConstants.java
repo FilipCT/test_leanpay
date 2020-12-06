@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 public class GeneralConstants {
     //Folder locations
     public static final String WORK_DIR = "./work/";
-    public static final String JSON_TEMPLATES_DIR = "D:\\TestProjects\\leanpay\\src\\test\\resources\\requests\\";
+    public static final String JSON_TEMPLATES_DIR = "./src/test/resources/requests/";
 }
